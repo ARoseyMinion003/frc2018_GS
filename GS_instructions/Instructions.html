@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html style="background-color:black; color:white;">
+
+<head>
+  <script src="GS_instructions.js"></script>
+  <audio id="instructionsMusic1_sound" src="../GS_sound/instructionsMusic1.mp3">You can't hear meh!</audio>
+  <style type="text/css">
+    html{  /*hides the scroll bar*/
+      width:inherit;
+      height:inherit;
+      overflow: scroll;
+      overflow-x: hidden;
+      background-color: black;
+      border: 25px solid transparent;
+      border-image-source: url(../pixel.png);
+      border-image-slice: 40%;
+      border-image-repeat: round;
+
+      overflow: scroll;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar{
+      width: 0px;
+    }
+    @keyframes flicker{
+      0% {opacity:0;}
+      25% {opacity:1;}
+      50% {opacity:0;}
+      75% {opacity:1;}
+      100% {opacity:0;}
+    }
+    #startButtonImage{
+      animation-name: flicker;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes wiggle{
+      0%{transform:translate(0px,0px);}
+      25%{transform:translate(0px,10px);}
+      50%{transform:translate(0px,0px);}
+      75%{transform:translate(0px,10px);}
+      100%{transform:translate(0px,0px);}
+    }
+    #powerCube{
+      animation-name: wiggle;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+    #scoringChart{
+      animation-delay: 0.5s;
+      animation-name: wiggle;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+    #instructionsField{
+      animation-delay: 1s;
+      animation-name: wiggle;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    #levitateBox{
+      animation-name: wiggle;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+    #boostBox{
+      animation-delay: 0.5s;
+      animation-name: wiggle;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+    #forceBox{
+      animation-delay: 1s;
+      animation-name: wiggle;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    #endgameBox{
+      animation-delay: 0.5s;
+      animation-name: wiggle;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    #xboxControlMap{
+      animation-delay: 0.5s;
+      animation-name: wiggle;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+  </style>
+
+  <script>
+  // for background sound to work must set Chrome autoplay flag to
+  //"user guesture is required for cross origin iframes."
+  // chrome://flags/#autoplay-policy
+    var instructionsMusic1 = document.getElementById('instructionsMusic1_sound');
+
+    instructionsMusic1.loop = true; //false
+    instructionsMusic1.play();
+    instructionsMusic1.onended = function nextSong(){menuSongNum++;}
+
+
+  </script>
+
+</head>
+
+
+<body onkeydown="handleKeys(event) " style="font-family:Arial">
+
+  <center>
+    <div id="header">
+      <img id="firstPowerUpLogo" src="instructionsImages/FIRSTPowerUpLogo.jpg">
+      <h2> FRC 2018 Game Simulator </h2> <!-- Get FIRST Power Up image-->
+      <h5> <br><br><i>P1: scroll down with LEFT STICK</i> <br></h5>
+    </div>
+
+    <div id="main">
+      <h3><br>RULES:</h3>
+
+      <h3><br><em><u>Scoring:</u></em></h3>
+      <table id="rulesTable"  style="width:100%"><!-- -->
+        <tr>
+          <td align="center" style="width:33%"> <img id="powerCube" src="instructionsImages/powerCube.png" height="300px"width="300px"></td>
+          <td align="center" style="width:33%"> <img id="scoringChart" src="instructionsImages/scoringChart.png" height="400px"width="600px">
+          </td>
+          <td align="center" style="width:33%"><img id="instructionsField" src="instructionsImages/instructionsField.png" height="300px"width="400px"></td>
+        </tr>
+      </table>
+      <h4>OWNERSHIP is achieved when the circle icon is your
+          <i>ALLIANCE's</i> color and tiped towards your <i>ALLIANCE's </i>side of that field element.</h4>
+
+      <h3><br><em><u>Power Ups:</u></em></h3>
+      <table id="powerUpTable" style="width:100%">
+        <tr>
+          <td align="center" style="width:33%"><img id="levitateBox" src="instructionsImages/levitateBox.png" height="300px"width="400px"></td>
+          <td align="center" style="width:33%"><img id="boostBox" src="instructionsImages/boostBox.png" height="300px"width="400px"></td>
+          <td align="center" style="width:33%"><img id="forceBox" src="instructionsImages/forceBox.png" height="300px"width="400px"></td>
+        </tr>
+      </table>
+      <h4><br>Each <em> Power Up </em> requires 3 <b> POWER CUBES </b> in that section of the <b>VALUT</b> to activate.
+          <br> <em>Power Ups </em> activate when the 3rd <b> POWER CUBE </b> is placed.
+          <br> If another <em>Power Up</em> is already active, the <em>Power Up</em> will activate after the previous one expires.
+      </h4>
+
+      <h3><br><em><u>End Game:</u></em></h3>
+      <table id="powerUpTable" style="width:100%">
+        <tr>
+          <td align="center" style="width:33%" colspan="3"> <img id="endgameBox" src="instructionsImages/endgameBox.png" height="400px"width="600px"></td>
+        </tr>
+      </table>
+      <h4><br>Must reach <em> 40 </em> in order for your climb to count.<br><br></h4>
+
+
+      <h3>CONTROLS:</h3>
+      <table id="controlsTable"  style="width:100%">
+        <tr>
+          <td align="center" style="width:33%" colspan="3"> <img id="xboxControlMap" src="instructionsImages/xboxControlMap.png"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="footer">
+      <img id="startButtonImage" src="instructionsImages/startButton.png" height="500px"width="800px"></td>
+    </div>
+  </center>
+</body>
+</html>

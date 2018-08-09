@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GAME OVER!</title>
+    <audio id="matchEndSoundEffect" src="GS_sound/Match End_normalized.wav">You can't hear meh!</audio>
+
+    <style>
+      html
+      {
+        background-color: black;
+      }
+      @keyframes flicker {
+        0%   {color:black;}
+        25%  {color:white;}
+        50%  {color:black;}
+        75%  {color:white;}
+        100% {color:black;}
+      }
+      /*@keyframes redFadeIn{
+        0%    {color:black;}
+        100%  {color:red;}
+      }
+      @keyframes blueFadeIn{
+        0%    {color:black;}
+        100%  {color:blue;}
+      }*/
+      #gameover
+      {
+        color:white;
+        margin-top: 400px;
+        font-size: 150px;
+        text-align: center;
+        animation-name: flicker;
+        animation-duration: 2s;
+        animation-iteration-count: 3;
+      }
+      #again
+      {
+        font-size: 50px;
+        text-align: center;
+        animation-delay: 6s;
+        animation-name: flicker;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+      }
+
+    </style>
+
+    <script>
+    // for endGame sound to work must set Chrome autoplay flag to
+    //"user guesture is required for cross origin iframes."
+    // chrome://flags/#autoplay-policy
+    var matchEndSound = document.getElementById('matchEndSoundEffect');
+    matchEndSound.loop = false;
+    matchEndSound.play();
+
+    var winner = localStorage.getItem("winner");
+    setInterval(displayWinner,6000); 
+    setInterval(pressStart,10000);
+
+    function displayWinner(){
+
+      setInterval(pollControllers,100);
+      if(winner == "blue"){
+        document.getElementById("gameover").innerHTML = "BLUE WON!";
+        document.getElementById("gameover").style.color = "blue";
+      }else if(winner == "red"){
+        document.getElementById("gameover").innerHTML = "RED WON!";
+        document.getElementById("gameover").style.color = "red";
+      }else{
+        document.getElementById("gameover").innerHTML = "ITS A TIE!";
+      }
+    }
+
+    function pollControllers(){
+      var gp1 = navigator.getGamepads()[0];
+      var gp2 = navigator.getGamepads()[0];
+
+      if(gp1.buttons[9].value || gp2.buttons[9].value){
+        goToInstructions();
+      }
+
+    }
+
+    function handleKeys(e){
+
+      var key = e.keyCode;
+
+      if(key == 32){
+        goToInstructions();
+      }
+
+    }
+
+    function pressStart() {
+      document.getElementById('again').innerHTML = "PRESS START!"
+    }
+
+    function goToInstructions(){
+      location.href = "GS_instructions/Instructions.html";
+    }
+
+    </script>
+  </head>
+  <body onkeypress="handleKeys(event)">
+    <h1 id="gameover"> GAME OVER! </h1>
+    <h1 id="again">PLAY AGAIN?</h1>
+  </body>
+</html>
